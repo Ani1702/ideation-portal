@@ -70,7 +70,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-screen overflow-hidden text-black relative" style={{ background: 'linear-gradient(to right, #191654, #43C6AC)'}}>
+      <div className="min-h-screen overflow-hidden text-black relative animated-gradient" >
         <Link href="/">
           <img
             src="ieeecslogo.svg"
@@ -155,6 +155,19 @@ export default function Home() {
         </div>
       </div>
       <ToastContainer  />
+      <style jsx>{`
+        @keyframes gradient {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+      `}</style>
     </>
   );
 }
