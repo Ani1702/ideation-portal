@@ -116,7 +116,7 @@ export default function Home() {
           </h1>
 
           <div className={`mt-12 grid grid-cols-1 lg:grid-cols-2 gap-10 ${playd.className}`}>
-            <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 lg:h-[calc(100vh-13rem)]">
+            <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 lg:h-[calc(100vh-11rem)]">
               <h2 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-center">Submit Your Project</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-4 md:mb-6">
@@ -155,7 +155,7 @@ export default function Home() {
                     id="details"
                     value={projectDetails}
                     onChange={(e) => setProjectDetails(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg h-28 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg h-24 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     required 
                   />
                 </div>
@@ -171,7 +171,7 @@ export default function Home() {
               </form>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 lg:h-[calc(100vh-13rem)] overflow-hidden">
+            <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 lg:h-[calc(100vh-11rem)] overflow-hidden">
               <h2 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-center">Submitted Ideas</h2>
               <div className="h-full overflow-y-auto space-y-4 md:space-y-6">
                 {previousIdeas && previousIdeas.slice().reverse().map((idea, index) => (
