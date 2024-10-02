@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Playfair_Display } from "next/font/google";
 import { Sixtyfour } from "next/font/google";
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const sf = Sixtyfour({
   display: "swap",
@@ -26,6 +28,12 @@ export default function Home() {
   const [scrolling, setScrolling] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false); // State for popup visibility
 
+  const notify = () => {
+    console.log("Toast triggered");
+    toast("Idea Submitted!");
+  };
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -45,16 +53,12 @@ export default function Home() {
         desc: projectDetails,
       };
       setPreviousIdeas((prev) => [newIdea, ...prev]);
-
-      setPopupVisible(true);
-      setTimeout(() => {
-        setPopupVisible(false);
-      }, 3000);
+      notify();
     })
     .catch((error) => {
       console.error('Some error occurred!', error);
     });
-
+  
     setName("");
     setProjectDetails("");
     setProjectTitle("");
@@ -146,16 +150,11 @@ export default function Home() {
                   </button>
                 </div>
               </form>
-
-              {popupVisible && (
-                <div className="mt-4 text-center text-green-600 font-semibold">
-                  Idea Submitted!
-                </div>
-              )}
             </div>
           </div>
         </div>
       </div>
+      <ToastContainer  />
     </>
   );
 }
