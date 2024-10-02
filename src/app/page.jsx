@@ -89,7 +89,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-screen overflow-auto text-black relative" style={{ background: 'linear-gradient(to right, #191654, #43C6AC)' }}>
+      <div className="min-h-screen overflow-hidden text-black relative" style={{ background: 'linear-gradient(to right, #191654, #43C6AC)' }}>
         <Link href="/">
           <img
             src="ieeecslogo.svg"
@@ -115,8 +115,8 @@ export default function Home() {
             Ideation Portal
           </h1>
 
-          <div className={`mt-16 grid grid-cols-1 lg:grid-cols-2 gap-10 ${playd.className}`}>
-            <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 h-[calc(100vh-12rem)] overflow-hidden">
+          <div className={`mt-12 grid grid-cols-1 lg:grid-cols-2 gap-10 ${playd.className}`}>
+            <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 h-[calc(100vh-12rem)]">
               <h2 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-center">Submit Your Project</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-4 md:mb-6">
