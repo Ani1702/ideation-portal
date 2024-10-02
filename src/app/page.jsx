@@ -65,7 +65,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-screen overflow-auto md:overflow-hidden">
+      <div className="h-screen overflow-auto md:overflow-hidden text-black">
         <Image
           src="/background.jpg"
           layout="fill"
@@ -95,12 +95,12 @@ export default function Home() {
         </Link>
 
         <div className="relative p-10">
-          <h1 className={`text-4xl md:text-6xl font-bold text-center ${manrope.className} m-8 md:m-0`}>
+          <h1 className={`text-4xl md:text-6xl font-bold text-center ${manrope.className} m-8 md:m-0 text-black`}>
             Ideation Portal
           </h1>
 
           <div className={`mt-10 grid grid-cols-1 lg:grid-cols-2 gap-10 ${manrope.className}`}>
-            <div className="bg-white rounded-lg shadow-lg p-8 h-auto">
+            <div className="bg-white rounded-lg shadow-lg p-8 h-auto mb-4">
               <h2 className="text-3xl font-semibold mb-6">Submit Your Project</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-6">
@@ -112,9 +112,8 @@ export default function Home() {
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    required // Added required attribute
+                    required
                   />
                 </div>
 
@@ -127,9 +126,8 @@ export default function Home() {
                     id="title"
                     value={projectTitle}
                     onChange={(e) => setProjectTitle(e.target.value)}
-                    placeholder="Enter project title"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    required // Added required attribute
+                    required 
                   />
                 </div>
 
@@ -141,9 +139,8 @@ export default function Home() {
                     id="details"
                     value={projectDetails}
                     onChange={(e) => setProjectDetails(e.target.value)}
-                    placeholder="Describe your project"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg h-32 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    required // Added required attribute
+                    required 
                   />
                 </div>
 
@@ -158,8 +155,8 @@ export default function Home() {
               </form>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <h2 className="text-3xl font-semibold mb-6">Previous Ideas</h2>
+            <div className="bg-white rounded-lg shadow-lg p-8 mb-4">
+              <h2 className="text-3xl font-semibold mb-6">Submitted Ideas</h2>
               <div className="h-[30rem] overflow-y-auto space-y-6">
                 {previousIdeas && previousIdeas.slice().reverse().map((idea, index) => (
                   <div
