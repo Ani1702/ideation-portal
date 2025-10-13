@@ -16,48 +16,65 @@ import AnimatedLogo from '../components/AnimatedLogo';
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [previousIdeas, setPreviousIdeas] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const notify = () => {
     toast.success("✅ Idea submitted successfully!", {
-      position: "top-right",
+      position: isMobile ? "top-center" : "top-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
-      draggable: true,
+      draggable: !isMobile,
       style: {
         background: 'rgba(15, 23, 42, 0.95)',
         backdropFilter: 'blur(10px)',
         border: '1px solid rgba(34, 197, 94, 0.3)',
-        borderRadius: '12px',
+        borderRadius: isMobile ? '8px' : '12px',
         color: '#ffffff',
         fontFamily: 'Orbitron, monospace',
-        fontSize: '14px',
-        fontWeight: '500'
+        fontSize: isMobile ? '13px' : '14px',
+        fontWeight: '500',
+        margin: isMobile ? '0 12px' : '0',
+        maxWidth: isMobile ? 'calc(100vw - 24px)' : '320px',
+        width: isMobile ? 'calc(100vw - 24px)' : '320px',
+        padding: isMobile ? '12px 16px' : '16px',
+        lineHeight: '1.4'
       }
     });
   };
 
-  const handleFormSubmit = ({ name, projectTitle, projectDetails }) => {
-    axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}submit`, {
-      name: name,
+  const handleFormSubmit = ({ name, projectTitle, projectDetails, enrollmentFeedback }) => {
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/submit`, {
+      name: name || null, // Make name optional - send undefined if empty
       idea: projectTitle,
-      desc: projectDetails
+      desc: projectDetails,
+      feedback: enrollmentFeedback
     }, {
       headers: {
         'Content-Type': 'application/json',
       },
-      maxBodyLength: 10000
+      maxBodyLength: 20000
     })
     .then((response) => {
       const newIdea = {
         idea: projectTitle,
         desc: projectDetails,
         name: name,
+        feedback: enrollmentFeedback,
         timestamp: new Date().toISOString(),
       };
       setPreviousIdeas((prev) => [newIdea, ...prev]);
@@ -66,16 +83,21 @@ export default function Home() {
     .catch((error) => {
       console.error('Transmission Error:', error);
       toast.error("Failed to submit idea. Please try again.", {
-        position: "top-right",
+        position: isMobile ? "top-center" : "top-right",
         style: {
           background: 'rgba(15, 23, 42, 0.95)',
           backdropFilter: 'blur(10px)',
           border: '1px solid rgba(239, 68, 68, 0.3)',
-          borderRadius: '12px',
+          borderRadius: isMobile ? '8px' : '12px',
           color: '#ffffff',
           fontFamily: 'Orbitron, monospace',
-          fontSize: '14px',
-          fontWeight: '500'
+          fontSize: isMobile ? '13px' : '14px',
+          fontWeight: '500',
+          margin: isMobile ? '0 12px' : '0',
+          maxWidth: isMobile ? 'calc(100vw - 24px)' : '320px',
+          width: isMobile ? 'calc(100vw - 24px)' : '320px',
+          padding: isMobile ? '12px 16px' : '16px',
+          lineHeight: '1.4'
         }
       });
     });
@@ -150,11 +172,11 @@ export default function Home() {
           </motion.nav>
 
           {/* Main Content Container */}
-          <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 lg:space-y-8">
+          <main className="flex-1 flex flex-col items-center justify-center px-4 py-4 lg:py-6 lg:space-y-4">
             
             {/* Mobile Logo */}
             <motion.div 
-              className="block lg:hidden mb-8 mt-4"
+              className="block lg:hidden mb-6 mt-2"
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
@@ -165,13 +187,13 @@ export default function Home() {
             </motion.div>
 
             {/* Futuristic Title */}
-            <div className="mb-8 lg:mb-0">
+            <div className="mb-4 lg:mb-0 lg:-mt-8 lg:relative lg:bottom-5">
               <FuturisticTitle />
             </div>
 
             {/* Main Form */}
             <motion.div 
-              className="w-full max-w-2xl mx-auto"
+              className="w-full max-w-3xl mx-auto relative bottom-5"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -181,51 +203,7 @@ export default function Home() {
 
             {/* Recent Ideas Display */}
             <AnimatePresence>
-              {previousIdeas.length > 0 && (
-                <motion.section
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -50 }}
-                  className="w-full max-w-4xl mx-auto mt-16"
-                >
-                  <motion.h3 
-                    className="text-2xl font-orbitron text-center mb-8 bg-gradient-to-r from-neon-pink to-neon-cyan bg-clip-text text-transparent"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    Recent Ideas
-                  </motion.h3>
-                  
-                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {previousIdeas.slice(0, 6).map((idea, index) => (
-                      <motion.div
-                        key={`${idea.idea}-${index}`}
-                        initial={{ opacity: 0, y: 20, rotateY: -10 }}
-                        animate={{ opacity: 1, y: 0, rotateY: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="group relative backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10 p-6 hover:border-neon-cyan/30 transition-all duration-300"
-                        whileHover={{ y: -5, scale: 1.02 }}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/5 to-neon-pink/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        
-                        <div className="relative z-10">
-                          <h4 className="font-orbitron text-lg text-neon-cyan mb-2 truncate">
-                            {idea.idea}
-                          </h4>
-                          <p className="text-gray-300 text-sm line-clamp-3 mb-3">
-                            {idea.desc}
-                          </p>
-                          <div className="flex items-center justify-between text-xs text-gray-400">
-                            <span>by {idea.name}</span>
-                            <span>ID: #{String(index + 1).padStart(3, '0')}</span>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.section>
-              )}
+        
             </AnimatePresence>
           </main>
         </div>
@@ -233,20 +211,30 @@ export default function Home() {
 
       {/* Custom Toast Container */}
       <ToastContainer
-        position="top-right"
+        position={isMobile ? "top-center" : "top-right"}
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
+        pauseOnFocusLoss={!isMobile}
+        draggable={!isMobile}
+        pauseOnHover={!isMobile}
         theme="dark"
         toastStyle={{
           background: 'transparent',
         }}
-        toastClassName="font-sans"
+        toastClassName={isMobile ? "mobile-toast" : "desktop-toast"}
+        style={{
+          '--toastify-toast-width': isMobile ? 'calc(100vw - 24px)' : '320px',
+          '--toastify-toast-min-height': '60px',
+          top: '20px',
+          left: isMobile ? '50%' : 'auto',
+          right: isMobile ? 'auto' : '20px',
+          transform: isMobile ? 'translateX(-50%)' : 'none',
+          width: isMobile ? 'calc(100vw - 24px)' : '320px',
+          maxWidth: isMobile ? 'calc(100vw - 24px)' : '320px'
+        }}
       />
     </>
   );

@@ -23,7 +23,7 @@ const FuturisticForm = ({ onSubmit }) => {
 
   return (
     <div
-      className="relative backdrop-blur-lg rounded-3xl border border-white/20 p-6 shadow-2xl"
+      className="relative backdrop-blur-lg rounded-3xl border border-white/20 p-6 shadow-2xl "
       style={{
         background: 'linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.9) 50%, rgba(51,65,85,0.85) 100%)',
         boxShadow: '0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)'
@@ -52,9 +52,8 @@ const FuturisticForm = ({ onSubmit }) => {
               onChange={(e) => setName(e.target.value)}
               onFocus={() => setFocusedField('name')}
               onBlur={() => setFocusedField(null)}
-              placeholder="Enter your name"
-              className="w-full pl-12 pr-4 py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan/50 transition-all duration-300 font-orbitron text-sm"
-              required
+              placeholder="Enter your name (optional)"
+              className="w-full pl-12 pr-4 py-3 md:py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan/50 transition-all duration-300 font-orbitron text-sm"
             />
           </div>
 
@@ -70,7 +69,7 @@ const FuturisticForm = ({ onSubmit }) => {
               onFocus={() => setFocusedField('title')}
               onBlur={() => setFocusedField(null)}
               placeholder="Enter project title"
-              className="w-full pl-12 pr-4 py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-pink focus:ring-1 focus:ring-neon-pink/50 transition-all duration-300 font-orbitron text-sm"
+              className="w-full pl-12 pr-4 py-3 md:py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-pink focus:ring-1 focus:ring-neon-pink/50 transition-all duration-300 font-orbitron text-sm"
               required
             />
           </div>
@@ -87,7 +86,7 @@ const FuturisticForm = ({ onSubmit }) => {
               onBlur={() => setFocusedField(null)}
               placeholder="Describe your project idea in detail..."
               rows={3}
-              className="w-full pl-12 pr-4 py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan/50 transition-all duration-300 resize-none font-orbitron text-sm leading-relaxed"
+              className="w-full pl-12 pr-4 py-3 md:py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan/50 transition-all duration-300 resize-none font-orbitron text-sm leading-relaxed"
               required
             />
           </div>
@@ -95,7 +94,7 @@ const FuturisticForm = ({ onSubmit }) => {
           {/* Feedback Section */}
           <div className="pt-4 border-t border-white/10">
             <h3 className="text-base font-orbitron text-center mb-3 text-white/90 font-semibold">
-              Share Your Feedback
+              Enrollments Feedback 
             </h3>
             
             <div className="relative">
@@ -107,9 +106,9 @@ const FuturisticForm = ({ onSubmit }) => {
                 onChange={(e) => setEnrollmentFeedback(e.target.value)}
                 onFocus={() => setFocusedField('feedback')}
                 onBlur={() => setFocusedField(null)}
-                placeholder="Please share any issues you encountered with last year's enrollment portal, no matter how minor they may have been."
-                rows={2}
-                className="w-full pl-12 pr-4 py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-pink focus:ring-1 focus:ring-neon-pink/50 transition-all duration-300 resize-none font-orbitron text-sm leading-relaxed"
+                placeholder="Any issues with last year's enrollments portal or the enrollments process?"
+                rows={3}
+                className="w-full pl-12 pr-4 py-3 md:py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-pink focus:ring-1 focus:ring-neon-pink/50 transition-all duration-300 resize-none font-orbitron text-sm leading-relaxed"
               />
             </div>
           </div>
@@ -122,7 +121,7 @@ const FuturisticForm = ({ onSubmit }) => {
             >
               <div className="relative flex items-center justify-center space-x-2 font-orbitron">
                 <span className="text-base font-semibold text-white tracking-wide">
-                  SUBMIT IDEA
+                  SUBMIT
                 </span>
                 <Send className="w-5 h-5 text-white" />
               </div>
