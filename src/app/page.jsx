@@ -204,7 +204,7 @@ export default function Home() {
           </motion.nav>
 
           {/* Main Content Container */}
-          <main className="flex-1 flex flex-col items-center justify-center px-4 py-4 lg:py-6 lg:space-y-4">
+          <main className="flex-1 flex flex-col items-center justify-start px-4 py-4 lg:py-6 lg:space-y-4">
             
             {/* Mobile Logo */}
             <motion.div 

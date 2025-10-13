@@ -1,8 +1,38 @@
 'use client';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 const AnimatedLogo = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Mobile version - simple, small logo only
+  if (isMobile) {
+    return (
+      <div className="relative">
+        <img
+          src="/ieeecslogo.svg"
+          width={120}
+          height={120}
+          alt="IEEE Computer Society Logo"
+          className="relative z-10"
+        />
+      </div>
+    );
+  }
+
+  // Desktop version - full animated logo
   return (
     <motion.div
       className="relative group"
