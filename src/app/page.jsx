@@ -44,8 +44,6 @@ export default function Home() {
       }
     };
 
-
-    
     const updateScrollLock = () => {
       if (window.innerWidth >= 768) {
         // Lock scroll on desktop
@@ -53,11 +51,11 @@ export default function Home() {
         document.documentElement.style.overflow = 'hidden';
         document.body.style.height = '100vh';
       } else {
-        // Allow normal scroll on mobile
-        document.body.style.overflow = 'auto';
-        document.documentElement.style.overflow = 'auto';
-        document.body.style.height = 'auto';
-        document.body.style.maxHeight = 'none';
+        // Allow free scroll on mobile
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        document.body.style.height = '';
+        document.body.style.maxHeight = '';
       }
     };
     
@@ -176,18 +174,18 @@ export default function Home() {
   return (
     <>
       <div className="min-h-screen relative md:overflow-hidden bg-black">
-        {/* Animated Background */}
-        <div className="fixed inset-0 w-full h-full">
+        {/* Animated Background - Fixed on mobile, covers full viewport */}
+        <div className="fixed md:absolute inset-0 w-full h-full min-h-screen">
           <AnimatedBackground />
         </div>
         
-        {/* Floating Particles */}
-        <div className="fixed inset-0 w-full h-full">
+        {/* Floating Particles - Fixed on mobile */}
+        <div className="fixed md:absolute inset-0 w-full h-full min-h-screen">
           <FloatingParticles />
         </div>
         
-        {/* Grid Pattern Overlay */}
-        <div className="fixed inset-0 w-full h-full grid-pattern opacity-20 pointer-events-none z-10" />
+        {/* Grid Pattern Overlay - Fixed on mobile */}
+        <div className="fixed md:absolute inset-0 w-full h-full min-h-screen grid-pattern opacity-20 pointer-events-none z-10" />
         
         {/* Main Content */}
         <div className="relative z-20 min-h-screen flex flex-col">

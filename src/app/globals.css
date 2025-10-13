@@ -27,18 +27,20 @@ html {
   background: #0a0a0a;
 }
 
-/* Mobile - allow normal scrolling */
+/* Mobile - allow free scrolling with proper background */
 @media (max-width: 767px) {
   body {
     overflow-y: auto;
     overflow-x: hidden;
     background: #0a0a0a;
+    min-height: 100vh;
   }
   
   html {
     overflow-y: auto;
     overflow-x: hidden;
     background: #0a0a0a;
+    min-height: 100vh;
   }
 }
 
