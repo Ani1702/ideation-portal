@@ -106,7 +106,7 @@ const FuturisticForm = ({ onSubmit }) => {
                 onChange={(e) => setEnrollmentFeedback(e.target.value)}
                 onFocus={() => setFocusedField('feedback')}
                 onBlur={() => setFocusedField(null)}
-                placeholder="Any issues with last year's enrollments portal or the enrollments process?"
+                placeholder="Any issues or suggestions with last year's enrollments portal or the enrollments process?"
                 rows={3}
                 className="w-full pl-12 pr-4 py-3 md:py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-pink focus:ring-1 focus:ring-neon-pink/50 transition-all duration-300 resize-none font-orbitron text-sm leading-relaxed"
               />
