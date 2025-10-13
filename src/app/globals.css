@@ -27,19 +27,15 @@ html {
   background: #0a0a0a;
 }
 
-/* Mobile scroll with height limit */
+/* Mobile - allow normal scrolling */
 @media (max-width: 767px) {
   body {
-    height: 115dvh;
-    max-height: 115dvh;
     overflow-y: auto;
     overflow-x: hidden;
     background: #0a0a0a;
   }
   
   html {
-    height: 115dvh;
-    max-height: 115dvh;
     overflow-y: auto;
     overflow-x: hidden;
     background: #0a0a0a;

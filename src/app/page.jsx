@@ -44,15 +44,7 @@ export default function Home() {
       }
     };
 
-    // Limit scroll on mobile to 115dvh
-    const limitMobileScroll = () => {
-      if (window.innerWidth < 768) {
-        const maxScroll = window.innerHeight * 0.15; // 15% extra (115dvh - 100dvh)
-        if (window.scrollY > maxScroll) {
-          window.scrollTo(0, maxScroll);
-        }
-      }
-    };
+
     
     const updateScrollLock = () => {
       if (window.innerWidth >= 768) {
@@ -61,11 +53,11 @@ export default function Home() {
         document.documentElement.style.overflow = 'hidden';
         document.body.style.height = '100vh';
       } else {
-        // Allow limited scroll on mobile (max 115dvh)
+        // Allow normal scroll on mobile
         document.body.style.overflow = 'auto';
         document.documentElement.style.overflow = 'auto';
-        document.body.style.height = '115dvh';
-        document.body.style.maxHeight = '115dvh';
+        document.body.style.height = 'auto';
+        document.body.style.maxHeight = 'none';
       }
     };
     
@@ -76,7 +68,6 @@ export default function Home() {
     window.addEventListener('wheel', preventScroll, { passive: false });
     window.addEventListener('touchmove', preventScroll, { passive: false });
     window.addEventListener('keydown', preventKeyScroll, { passive: false });
-    window.addEventListener('scroll', limitMobileScroll, { passive: true });
     
     // Update scroll lock on resize
     const handleResize = () => {
@@ -94,7 +85,6 @@ export default function Home() {
       window.removeEventListener('wheel', preventScroll);
       window.removeEventListener('touchmove', preventScroll);
       window.removeEventListener('keydown', preventKeyScroll);
-      window.removeEventListener('scroll', limitMobileScroll);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
@@ -185,22 +175,22 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-[115dvh] md:min-h-screen relative md:overflow-hidden bg-black">
+      <div className="min-h-screen relative md:overflow-hidden bg-black">
         {/* Animated Background */}
-        <div className="absolute inset-0 min-h-[115dvh] md:min-h-screen">
+        <div className="fixed inset-0 w-full h-full">
           <AnimatedBackground />
         </div>
         
         {/* Floating Particles */}
-        <div className="absolute inset-0 min-h-[115dvh] md:min-h-screen">
+        <div className="fixed inset-0 w-full h-full">
           <FloatingParticles />
         </div>
         
         {/* Grid Pattern Overlay */}
-        <div className="absolute inset-0 min-h-[115dvh] md:min-h-screen grid-pattern opacity-20 pointer-events-none z-10" />
+        <div className="fixed inset-0 w-full h-full grid-pattern opacity-20 pointer-events-none z-10" />
         
         {/* Main Content */}
-        <div className="relative z-20 min-h-[115dvh] md:min-h-screen flex flex-col">
+        <div className="relative z-20 min-h-screen flex flex-col">
           {/* Header with Animated Logo - Desktop Only */}
           <motion.header 
             className="absolute top-8 left-8 z-30 hidden lg:block"
