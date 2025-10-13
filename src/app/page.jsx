@@ -64,7 +64,7 @@ export default function Home() {
   }, []);
 
   const notify = () => {
-    toast.success("✅ Idea submitted successfully!", {
+    toast.success("Idea submitted successfully!", {
       position: isMobile ? "top-center" : "top-right",
       autoClose: 3000,
       hideProgressBar: false,
