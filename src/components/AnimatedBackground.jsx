@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const AnimatedBackground = () => {
   return (
-    <div className="fixed inset-0 overflow-hidden z-0">
+    <div className="inset-0 z-0">
       {/* Base gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900" />
       

@@ -175,7 +175,7 @@ export default function Home() {
     <>
       <div className="min-h-screen relative md:overflow-hidden bg-black">
         {/* Animated Background - Fixed on mobile, covers full viewport */}
-        <div className="fixed md:absolute inset-0 w-full h-full min-h-[140vh]">
+        <div className="fixed md:absolute inset-0 w-full h-full min-h-screen">
           <AnimatedBackground />
         </div>
         
