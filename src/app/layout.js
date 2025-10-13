@@ -27,8 +27,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata = {
-  title: "Ideation Nexus | IEEE-CS",
-  description: "IEEE-CS Ideation Portal - Where Innovation Transcends Reality",
+  title: "Ideation Portal | IEEE-CS VIT",
+  description: "IEEE-CS VIT Ideation Portal",
 };
 
 export default function RootLayout({ children }) {

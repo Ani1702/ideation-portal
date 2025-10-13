@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 const FuturisticTitle = () => {
   const [displayText, setDisplayText] = useState('');
-  const fullText = 'IDEATION NEXUS';
+  const fullText = 'IDEATION PORTAL';
   
   useEffect(() => {
     let currentIndex = 0;
