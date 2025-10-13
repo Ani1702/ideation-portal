@@ -25,32 +25,53 @@ export default function Home() {
       setIsMobile(window.innerWidth < 768);
     };
     
-    // Prevent all scrolling
+    // Prevent scrolling only on desktop (md and above)
     const preventScroll = (e) => {
-      e.preventDefault();
-      return false;
-    };
-
-    const preventKeyScroll = (e) => {
-      // Prevent arrow keys, page up/down, space, home, end
-      const scrollKeys = [32, 33, 34, 35, 36, 37, 38, 39, 40];
-      if (scrollKeys.includes(e.keyCode)) {
+      if (window.innerWidth >= 768) { // Only prevent scroll on desktop
         e.preventDefault();
         return false;
       }
     };
+
+    const preventKeyScroll = (e) => {
+      if (window.innerWidth >= 768) { // Only prevent key scroll on desktop
+        // Prevent arrow keys, page up/down, space, home, end
+        const scrollKeys = [32, 33, 34, 35, 36, 37, 38, 39, 40];
+        if (scrollKeys.includes(e.keyCode)) {
+          e.preventDefault();
+          return false;
+        }
+      }
+    };
     
-    // Lock scroll on mount
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
+    const updateScrollLock = () => {
+      if (window.innerWidth >= 768) {
+        // Lock scroll on desktop
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+      } else {
+        // Allow scroll on mobile
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      }
+    };
+    
+    // Initial scroll lock setup
+    updateScrollLock();
     
     // Prevent scroll events
     window.addEventListener('wheel', preventScroll, { passive: false });
     window.addEventListener('touchmove', preventScroll, { passive: false });
     window.addEventListener('keydown', preventKeyScroll, { passive: false });
     
+    // Update scroll lock on resize
+    const handleResize = () => {
+      checkMobile();
+      updateScrollLock();
+    };
+    
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener('resize', handleResize);
     
     return () => {
       // Cleanup: restore scroll and remove listeners
@@ -59,7 +80,7 @@ export default function Home() {
       window.removeEventListener('wheel', preventScroll);
       window.removeEventListener('touchmove', preventScroll);
       window.removeEventListener('keydown', preventKeyScroll);
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -149,7 +170,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-screen relative overflow-hidden">
+      <div className="min-h-screen relative md:overflow-hidden">
         {/* Animated Background */}
         <AnimatedBackground />
         

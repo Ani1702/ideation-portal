@@ -21,12 +21,13 @@ const AnimatedLogo = () => {
   if (isMobile) {
     return (
       <div className="relative">
-        <img
+        <Image
           src="/ieeecslogo.svg"
           width={120}
           height={120}
           alt="IEEE Computer Society Logo"
           className="relative z-10"
+          priority
         />
       </div>
     );
@@ -69,12 +70,13 @@ const AnimatedLogo = () => {
           ease: "linear"
         }}
       >
-        <img
+        <Image
           src="/ieeecslogo.svg"
           width={120}
           height={120}
           alt="IEEE Computer Society Logo"
           className="relative z-10 group-hover:drop-shadow-[0_0_20px_rgba(0,255,255,0.5)]"
+          priority
         />
       </motion.div>
       
