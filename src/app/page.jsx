@@ -25,10 +25,42 @@ export default function Home() {
       setIsMobile(window.innerWidth < 768);
     };
     
+    // Prevent all scrolling
+    const preventScroll = (e) => {
+      e.preventDefault();
+      return false;
+    };
+
+    const preventKeyScroll = (e) => {
+      // Prevent arrow keys, page up/down, space, home, end
+      const scrollKeys = [32, 33, 34, 35, 36, 37, 38, 39, 40];
+      if (scrollKeys.includes(e.keyCode)) {
+        e.preventDefault();
+        return false;
+      }
+    };
+    
+    // Lock scroll on mount
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    
+    // Prevent scroll events
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('keydown', preventKeyScroll, { passive: false });
+    
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => {
+      // Cleanup: restore scroll and remove listeners
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventKeyScroll);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   const notify = () => {

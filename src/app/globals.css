@@ -12,17 +12,23 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+
 
 body {
   color: var(--foreground);
   background: #0a0a0a;
   font-family: 'Space Grotesk', sans-serif;
-  overflow-x: hidden;
+  overflow: hidden;
   margin: 0;
   padding: 0;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}
+
+html {
+  overflow: hidden;
+  height: 100vh;
 }
 
 .font-orbitron {
