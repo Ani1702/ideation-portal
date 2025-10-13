@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Send, Lightbulb, User, FileText, MessageSquare } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 const FuturisticForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
@@ -10,8 +11,56 @@ const FuturisticForm = ({ onSubmit }) => {
   const [enrollmentFeedback, setEnrollmentFeedback] = useState('');
   const [focusedField, setFocusedField] = useState(null);
 
+  const showValidationError = (message) => {
+    const isMobile = window.innerWidth < 768;
+    toast.error(message, {
+      position: isMobile ? "top-center" : "top-right",
+      autoClose: 4000,
+      style: {
+        background: 'rgba(15, 23, 42, 0.95)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(239, 68, 68, 0.3)',
+        borderRadius: isMobile ? '8px' : '12px',
+        color: '#ffffff',
+        fontFamily: 'Orbitron, monospace',
+        fontSize: isMobile ? '13px' : '14px',
+        fontWeight: '500',
+        margin: isMobile ? '0 12px' : '0',
+        maxWidth: isMobile ? 'calc(100vw - 24px)' : '320px',
+        width: isMobile ? 'calc(100vw - 24px)' : '320px',
+        padding: isMobile ? '12px 16px' : '16px',
+        lineHeight: '1.4'
+      }
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Custom validation logic
+    const hasProjectTitle = projectTitle.trim().length > 0;
+    const hasProjectDetails = projectDetails.trim().length > 0;
+    const hasFeedback = enrollmentFeedback.trim().length > 0;
+    
+    // Must have at least feedback OR both project title and description
+    if (!hasFeedback && !hasProjectTitle && !hasProjectDetails) {
+      showValidationError('Please fill either Feedback OR Project Idea (Title + Description)');
+      return;
+    }
+    
+    // If only title is filled without description
+    if (hasProjectTitle && !hasProjectDetails && !hasFeedback) {
+      showValidationError('Please add Project Description along with Title, or just submit Feedback');
+      return;
+    }
+    
+    // If only description is filled without title
+    if (!hasProjectTitle && hasProjectDetails) {
+      showValidationError('Please add Project Title along with Description, or just submit Feedback');
+      return;
+    }
+    
+    // Valid submission - submit
     onSubmit({ name, projectTitle, projectDetails, enrollmentFeedback });
     setName('');
     setProjectTitle('');
@@ -70,7 +119,6 @@ const FuturisticForm = ({ onSubmit }) => {
               onBlur={() => setFocusedField(null)}
               placeholder="Enter project title"
               className="w-full pl-12 pr-4 py-3 md:py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-pink focus:ring-1 focus:ring-neon-pink/50 transition-all duration-300 font-orbitron text-sm"
-              required
             />
           </div>
 
@@ -84,10 +132,9 @@ const FuturisticForm = ({ onSubmit }) => {
               onChange={(e) => setProjectDetails(e.target.value)}
               onFocus={() => setFocusedField('details')}
               onBlur={() => setFocusedField(null)}
-              placeholder="Describe your project idea in detail..."
+              placeholder="Describe your project idea in detail... "
               rows={3}
               className="w-full pl-12 pr-4 py-3 md:py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan/50 transition-all duration-300 resize-none font-orbitron text-sm leading-relaxed"
-              required
             />
           </div>
 

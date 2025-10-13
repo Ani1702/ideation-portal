@@ -35,6 +35,18 @@ export default function Home() {
 
     const preventKeyScroll = (e) => {
       if (window.innerWidth >= 768) { // Only prevent key scroll on desktop
+        // Don't prevent keys if user is typing in an input or textarea
+        const activeElement = document.activeElement;
+        const isInputField = activeElement && (
+          activeElement.tagName === 'INPUT' || 
+          activeElement.tagName === 'TEXTAREA' ||
+          activeElement.isContentEditable
+        );
+        
+        if (isInputField) {
+          return; // Allow all keys in input fields
+        }
+        
         // Prevent arrow keys, page up/down, space, home, end
         const scrollKeys = [32, 33, 34, 35, 36, 37, 38, 39, 40];
         if (scrollKeys.includes(e.keyCode)) {
